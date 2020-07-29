@@ -20,7 +20,7 @@ import (
 
 var _ = Describe("Container Sweeper", func() {
 	const (
-		sweepInterval              = 50 * time.Millisecond
+		sweepInterval              = 1 * time.Second
 		maxInFlight                = uint16(1)
 		gardenClientTimeoutRequest = 5 * time.Millisecond
 	)
@@ -125,7 +125,7 @@ var _ = Describe("Container Sweeper", func() {
 		It("request to garden times out eventually", func() {
 			Eventually(testLogger.Buffer()).Should(gbytes.Say("failed-to-destroy-container\".*\\(Client.Timeout exceeded while awaiting headers\\)"))
 		})
-		It("sweeper continues ticking and GC'ing", func() {
+		FIt("sweeper continues ticking and GC'ing", func() {
 			// ensure all 4 DELETEs are issues over 2 successive ticks
 			Eventually(func() []string {
 				// Gather all containers deleted
